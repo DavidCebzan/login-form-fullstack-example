@@ -29,7 +29,7 @@ export const handleRefreshToken = async (
           },
         },
         EnvConfig.ACCESS_TOKEN_SECRET,
-        { expiresIn: "10s" }
+        { expiresIn: "1h" }
       );
       res.json({ roles, accessToken });
     }
