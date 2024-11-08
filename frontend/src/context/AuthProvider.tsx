@@ -10,6 +10,8 @@ type Auth = {
 type AuthContextType = {
   auth: Auth;
   setAuth: Dispatch<SetStateAction<Auth>>;
+  persist: boolean;
+  setPersist: Dispatch<SetStateAction<boolean>>;
 };
 
 const initialState: Auth = {
@@ -22,6 +24,8 @@ const initialState: Auth = {
 const AuthContext = createContext<AuthContextType>({
   auth: initialState,
   setAuth: () => {},
+  persist: false,
+  setPersist: () => {},
 });
 
 type AuthProviderProps = {
@@ -30,9 +34,12 @@ type AuthProviderProps = {
 
 export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [auth, setAuth] = useState<Auth>(initialState);
+  const [persist, setPersist] = useState<boolean>(
+    JSON.parse(localStorage.getItem("persist") ?? "") || false
+  );
 
   return (
-    <AuthContext.Provider value={{ auth, setAuth }}>
+    <AuthContext.Provider value={{ auth, setAuth, persist, setPersist }}>
       {children}
     </AuthContext.Provider>
   );

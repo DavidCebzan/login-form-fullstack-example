@@ -1,20 +1,14 @@
-import React from "react";
-import useAuth from "../hooks/useAuth";
 import { useNavigate, Link } from "react-router-dom";
+import useLogout from "../hooks/useLogout";
 
 const Home = () => {
-  const { setAuth } = useAuth();
   const navigate = useNavigate();
+  const logout = useLogout();
 
-  const logout = async () => {
+  const singOut = async () => {
     // if used in more components, this should be in context
     // axios to /logout endpoint
-    setAuth({
-      user: "",
-      pwd: "",
-      roles: [],
-      accessToken: "",
-    });
+    logout();
     navigate("/linkpage");
   };
 
@@ -32,7 +26,7 @@ const Home = () => {
       <br />
       <Link to="/linkpage">Go to the link page</Link>
       <div className="flexGrow">
-        <button onClick={logout}>Sign Out</button>
+        <button onClick={singOut}>Sign Out</button>
       </div>
     </section>
   );

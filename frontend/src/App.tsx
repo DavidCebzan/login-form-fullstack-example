@@ -10,6 +10,7 @@ import Editor from "./components/Editor";
 import Admin from "./components/Admin";
 import Lounge from "./components/Lounge";
 import Unauthorized from "./components/Unauthorized";
+import PersistLogin from "./components/PersistLogin";
 
 const ROLES = {
   User: 2001,
@@ -28,22 +29,25 @@ function App() {
         <Route path="unauthorized" element={<Unauthorized />} />
 
         {/* we want to protect these routes */}
-        <Route element={<RequireAuth allowedRoles={[ROLES.User]} />}>
-          <Route path="/" element={<Home />} />
-        </Route>
 
-        <Route element={<RequireAuth allowedRoles={[ROLES.Editor]} />}>
-          <Route path="editor" element={<Editor />} />
-        </Route>
+        <Route element={<PersistLogin />}>
+          <Route element={<RequireAuth allowedRoles={[ROLES.User]} />}>
+            <Route path="/" element={<Home />} />
+          </Route>
 
-        <Route element={<RequireAuth allowedRoles={[ROLES.Admin]} />}>
-          <Route path="admin" element={<Admin />} />
-        </Route>
+          <Route element={<RequireAuth allowedRoles={[ROLES.Editor]} />}>
+            <Route path="editor" element={<Editor />} />
+          </Route>
 
-        <Route
-          element={<RequireAuth allowedRoles={[ROLES.Editor, ROLES.Admin]} />}
-        >
-          <Route path="lounge" element={<Lounge />} />
+          <Route element={<RequireAuth allowedRoles={[ROLES.Admin]} />}>
+            <Route path="admin" element={<Admin />} />
+          </Route>
+
+          <Route
+            element={<RequireAuth allowedRoles={[ROLES.Editor, ROLES.Admin]} />}
+          >
+            <Route path="lounge" element={<Lounge />} />
+          </Route>
         </Route>
 
         {/* catch all */}
