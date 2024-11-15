@@ -18,12 +18,9 @@ const UsersList = () => {
       <section className="users">
         <h1>Users List</h1>
         <ul>
-          {
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            users.map((user: any, i: number) => {
-              return <li key={i}>{user.username}</li>;
-            })
-          }
+          {users.map((user) => {
+            return <li key={user._id}>{user.username}</li>;
+          })}
         </ul>
         <Link to="/welcome">Back to Welcome</Link>
       </section>

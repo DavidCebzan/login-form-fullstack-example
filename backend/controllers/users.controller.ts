@@ -5,7 +5,7 @@ export const getAllUsers = async (
   req: Request,
   res: Response
 ): Promise<any> => {
-  const users = await User.find();
+  const users = await User.find().select("-password -refreshToken");
   if (!users) return res.status(204).json({ message: "No users found" });
   res.json(users);
 };

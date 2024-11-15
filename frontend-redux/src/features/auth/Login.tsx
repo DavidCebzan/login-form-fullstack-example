@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { setCredentials } from "./authSlice";
 import { useLoginMutation } from "./authApiSlice";
 import { useAppDispatch } from "../../app/store";
+import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 
 const Login = () => {
   const userRef = useRef() as RefObject<HTMLInputElement>;
@@ -27,10 +28,7 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      console.log("here ", user, pwd);
-
       const userData = await login({ user, pwd }).unwrap();
-      console.log(userData);
 
       dispatch(
         setCredentials({ token: userData.accessToken, user: { name: user } })
@@ -39,10 +37,9 @@ const Login = () => {
       setPwd("");
       navigate("/welcome");
     } catch (err) {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const error = err as any;
+      const error = err as FetchBaseQueryError;
 
-      if (!error?.originalStatus) {
+      if (error.status !== "PARSING_ERROR") {
         // isLoading: true until timeout occurs
         setErrMsg("No Server Response");
       } else if (error.originalStatus === 400) {

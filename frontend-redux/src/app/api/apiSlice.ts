@@ -33,14 +33,11 @@ const baseQueryWithReauth = async (
 ) => {
   let result = await baseQuery(args, api, extraOptions);
 
-  console.log(result);
-
   // 403 forbidden if we send an access token that is expired;
   if (
     result?.error?.status === "PARSING_ERROR" &&
     result.error.originalStatus === 403
   ) {
-    console.log("sending refresh token");
     // send refresh token to get new access token
     const refreshResult = await baseQuery("/refresh", api, extraOptions);
 

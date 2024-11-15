@@ -32,6 +32,5 @@ export const authSlice = createSlice({
 
 export const { setCredentials, resetCredentials } = authSlice.actions;
 
-// todo
 export const selectCurrentUser = (state: RootState) => state.auth.user;
 export const selectCurrentToken = (state: RootState) => state.auth.token;

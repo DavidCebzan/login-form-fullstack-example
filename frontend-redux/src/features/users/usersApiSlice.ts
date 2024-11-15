@@ -1,9 +1,14 @@
 import { apiSlice } from "../../app/api/apiSlice";
 
+type UsersApiResponse = {
+  username: string;
+  roles: number[];
+  _id: string;
+};
+
 export const usersApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    getUsers: builder.query<any, void>({
+    getUsers: builder.query<UsersApiResponse[], void>({
       query: () => "/users",
       keepUnusedDataFor: 5,
     }),
