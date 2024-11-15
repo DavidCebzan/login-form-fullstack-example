@@ -8,5 +8,6 @@ export default axios.create({
 export const axiosPrivate = axios.create({
   baseURL: BASE_URL,
   headers: { "Content-Type": "application/json" },
+  //send back out http only secure cookie with each request
   withCredentials: true,
 });

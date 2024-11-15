@@ -2,7 +2,7 @@
 import { FormEvent, RefObject, useEffect, useRef, useState } from "react";
 import axios from "../api/axios";
 import useAuth from "../hooks/useAuth";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 const LOGIN_URL = "/auth";
 
 const Login = () => {
@@ -115,7 +115,7 @@ const Login = () => {
         <br />
         <span className="line">
           {/*put router link here*/}
-          <a href="#">Sign Up</a>
+          <Link to={"/register"}>Sign Up</Link>
         </span>
       </p>
     </section>

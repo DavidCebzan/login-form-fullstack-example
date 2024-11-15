@@ -12,7 +12,8 @@ const router = express.Router();
 // same as in employees route but with chaining
 router
   .route("/")
-  .get(verifyJWT, verifyRoles(ROLES_LIST.Admin), getAllUsers)
+  //verifyRoles(ROLES_LIST.Admin), middleware
+  .get(verifyJWT, getAllUsers)
   .delete(verifyJWT, verifyRoles(ROLES_LIST.Admin), deleteUser);
 
 router.route("/:id").get(verifyJWT, verifyRoles(ROLES_LIST.Admin), getUser);
